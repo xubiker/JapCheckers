@@ -1,0 +1,4 @@
+JapCheckers
+===========
+
+logical game
