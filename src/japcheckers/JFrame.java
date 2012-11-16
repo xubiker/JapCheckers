@@ -27,8 +27,11 @@ public class JFrame extends javax.swing.JFrame {
 		rnd = new Random();
 		initComponents();
 //		this.setSize(1200, 900);
-		jPanel1.setPreferredSize(new Dimension(col * cell_size + left_spc * 2, row * cell_size + up_spc * 2));
-		imageLabel1.setSize(col * cell_size + left_spc * 2, row * cell_size + up_spc * 2);
+		int width = col * cell_size + left_spc * 2;
+		int height = row * cell_size + up_spc * 2;
+		this.setSize(width + 300, height + 100);
+		jPanel1.setPreferredSize(new Dimension(width, height));
+		imageLabel1.setSize(width, height);
 		imageLabel1.setGridParams(row, col, cell_size, left_spc, up_spc);
 	}
 

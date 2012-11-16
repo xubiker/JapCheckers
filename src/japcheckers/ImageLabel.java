@@ -68,7 +68,7 @@ public class ImageLabel extends JLabel {
 		for (Checker ch : checkers) {
 			g.setColor(colors[ch.getTurn()][JapCheckers.Bool2Int(ch.getState() == Checker.State.CAPTURED)]);
 			g.fillOval(left_spc + ch.getCrd().getX() * cell_size - 5, up_spc + ch.getCrd().getY() * cell_size - 5, 10, 10);
-			g2.drawString(Integer.toString(ch.getID()), left_spc + ch.getCrd().getX() * cell_size + 10, up_spc + ch.getCrd().getY() * cell_size + 10);
+//			g2.drawString(Integer.toString(ch.getID()), left_spc + ch.getCrd().getX() * cell_size + 10, up_spc + ch.getCrd().getY() * cell_size + 10);
 		}
 
 		// draw lines
