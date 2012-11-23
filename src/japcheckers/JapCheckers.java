@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package japcheckers;
 
+import japcheckers.accounts.AccountsManager;
 import japcheckers.game.GameHandler;
-import japcheckers.accounts.AccountsHandler;
 
 /**
  *
@@ -13,22 +9,11 @@ import japcheckers.accounts.AccountsHandler;
  */
 public class JapCheckers {
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
+	private static GameHandler gHandler;
+	private static StartGameListener startGameListener;
 
-		final GameHandler gHandler = new GameHandler(2);
-
-		JapListener action = new JapListener() {
-			@Override
-			public void Signal(JapEvent myEvent) {
-				if ("start_game".equals(myEvent.getMessage()))
-					gHandler.createFrame();
-					System.out.println(myEvent);
-			}
-		};
-
+	//**********************************************************************************************
+	private static void applyVisualStyle() {
 		try {
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 				if ("Windows".equals(info.getName())) {
@@ -39,16 +24,23 @@ public class JapCheckers {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
 			System.out.println("Error while setting style " + ex.getMessage());
 		}
-
-
-		AccountsHandler accHandler = new AccountsHandler();
-		accHandler.addListener(action);
-		accHandler.createFrame();
-//		gHandler = new GameHandler(2);
-//		gHandler.createFrame();
 	}
 
-	public static int Bool2Int (boolean val) {
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+
+		gHandler = new GameHandler(2);
+		startGameListener = new StartGameListener(gHandler);
+
+		applyVisualStyle();
+		AccountsManager accManager = new AccountsManager();
+		accManager.addListener(startGameListener);
+		accManager.createFrame();
+	}
+
+	public static int Bool2Int(boolean val) {
 		return val ? 1 : 0;
 	}
 }

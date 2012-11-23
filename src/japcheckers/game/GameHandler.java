@@ -13,7 +13,7 @@ public class GameHandler {
 	private int turn;
 	private int gamers_cnt, row = 25, col = 25;
 	private ArrayList<Checker> checkers;
-	private JFrame frame;
+	private GameFrame frame;
 	private ArrayList<ArrayList<Checker>> matrix;
 
 	//**********************************************************************************************
@@ -23,7 +23,7 @@ public class GameHandler {
 
 	//**********************************************************************************************
 	private void _createFrame() {
-		frame = new JFrame(row, col);
+		frame = new GameFrame(row, col);
 		frame.setHandler(this);
 		frame.setVisible(true);
 	}
@@ -458,13 +458,13 @@ public class GameHandler {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		//</editor-fold>
 

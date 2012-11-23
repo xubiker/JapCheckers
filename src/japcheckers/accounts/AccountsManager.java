@@ -1,17 +1,17 @@
 package japcheckers.accounts;
 
-import japcheckers.EventProducer;
-import japcheckers.JapListener;
-import japcheckers.xml.XML_Handler;
+import japcheckers.events.EventProducer;
+import japcheckers.events.JapListener;
+import japcheckers.xml.XML_Manager;
 import java.util.ArrayList;
 
 /**
  *
  * @author Александр
  */
-public class AccountsHandler {
+public class AccountsManager {
 	private AccountsFrame frame;
-	private XML_Handler xmlHandler;
+	private XML_Manager xmlHandler;
 	private ArrayList<User> currentUsers;
 
 	private EventProducer eventProducer;
@@ -22,10 +22,10 @@ public class AccountsHandler {
 		frame.setVisible(true);
 	}
 
-	public AccountsHandler () {
+	public AccountsManager () {
 		eventProducer = new EventProducer();
 		currentUsers = new ArrayList<>();
-		xmlHandler = new XML_Handler("accounts.xml");
+		xmlHandler = new XML_Manager("accounts.xml");
 	}
 
 	public void addListener (JapListener lst) {
@@ -38,16 +38,15 @@ public class AccountsHandler {
 
 	//**********************************************************************************************
 	public void loginAttempt (String login, String pswd) {
-		frame.displayMessage("login attempt");
 		User usr = xmlHandler.loginAttempt(login, pswd);
 		if (usr == null) {
-			frame.displayMessage("Invalid");
+			frame.displayMessage("Invalid login or password");
 		} else {
 			if (currentUsers.indexOf(usr) != -1) {
-				frame.displayMessage("User already loged in");
+				frame.displayMessage("User already logged in");
 			} else {
 				currentUsers.add(usr);
-				frame.displayMessage("Ok");
+				frame.displayMessage("User " + currentUsers.size() + " - successfull login");
 				if (currentUsers.size() == 2) {
 					frame.AllowGame();
 				}
@@ -59,14 +58,14 @@ public class AccountsHandler {
 	public void registerAttempt (String login, String pswd) {
 		User usr = xmlHandler.registerAttempt(login, pswd);
 		if (usr == null) {
-			frame.displayMessage("User already exists");
+			frame.displayMessage("User with simular name already exists");
 		} else {
-			frame.displayMessage("user successfully registered");
+			frame.displayMessage("New user successfully registered");
 		}
 	}
 
 	//**********************************************************************************************
-	public void Finish () {
+	public void finishXML () {
 		xmlHandler.Finish();
 	}
 }

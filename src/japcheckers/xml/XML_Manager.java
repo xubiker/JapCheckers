@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
  *
  * @author Александр
  */
-public class XML_Handler {
+public class XML_Manager {
 
 	private static enum LastEvent {
 		READ,
@@ -48,7 +48,7 @@ public class XML_Handler {
 	}
 
 	//**********************************************************************************************
-	public XML_Handler (String path) {
+	public XML_Manager (String path) {
 		modified = false;
 		lastevent = LastEvent.UNKNOWN;
 		xmlPath = path;
@@ -111,8 +111,7 @@ public class XML_Handler {
 			users = doc.getElementsByTagName("user");
 		}
 		// check if the account list is empty
-//		if ((users.getLength() == 0) || (users.getLength() == 1) && (users.item(0).getNodeValue() == null)) {
-		if ((users.getLength() == 0)) {
+		if (users.getLength() == 0) {
 			return null;
 		}
 		for (int i = 0; i < users.getLength(); i++) {
@@ -129,11 +128,12 @@ public class XML_Handler {
 
 	//**********************************************************************************************
 	private int getLastID () {
-		// check if the account list is empty
+		// refresh the account list if needed
 		if (lastevent == LastEvent.UNKNOWN || lastevent == LastEvent.WRITE) {
 			users = doc.getElementsByTagName("user");
 		}
-		if ((users == null) || (users.getLength() == 1) && (users.item(0).getNodeValue() == null)) {
+		// check if the account list is empty
+		if (users.getLength() == 0) {
 			return 0;
 		}
 		int maxID = 0;
@@ -193,10 +193,23 @@ public class XML_Handler {
 	}
 
 	//**********************************************************************************************
+	private static void modifyTagValue (String sTag, Element elem, String newVal) {
+		NodeList lst = elem.getElementsByTagName(sTag).item(0).getChildNodes();
+		lst.item(0).setTextContent(newVal);
+	}
+
+	//**********************************************************************************************
 	private static String getAttributeValue (String sTag, Element elem) {
 		NamedNodeMap attr = elem.getAttributes();
 		Node nodeAttr = attr.getNamedItem(sTag);
 		return nodeAttr.getNodeValue();
+	}
+
+	//**********************************************************************************************
+	private static void modifyAttributeValue (String sTag, Element elem, String newVal) {
+		NamedNodeMap attr = elem.getAttributes();
+		Node nodeAttr = attr.getNamedItem(sTag);
+		nodeAttr.setTextContent(newVal);
 	}
 
 	//**********************************************************************************************

@@ -1,6 +1,5 @@
 package japcheckers.game;
 
-import japcheckers.xml.XML_Handler;
 import java.awt.Dimension;
 import java.util.Random;
 
@@ -9,7 +8,7 @@ import java.util.Random;
  * @author Александр
  */
 @SuppressWarnings("serial")
-public class JFrame extends javax.swing.JFrame {
+public class GameFrame extends javax.swing.JFrame {
 	private GameHandler handler;
 	private int row, col, cell_size = 35, left_spc = 10, up_spc = 10;
 	private static Random rnd;
@@ -22,18 +21,18 @@ public class JFrame extends javax.swing.JFrame {
 		handler = gh;
 	}
 
-	public JFrame(int row, int col) {
+	public GameFrame(int row, int col) {
 		this.row = row;
 		this.col = col;
 		rnd = new Random();
 		initComponents();
-//		this.setSize(1200, 900);
 		int width = col * cell_size + left_spc * 2;
 		int height = row * cell_size + up_spc * 2;
 		this.setSize(width + 300, height + 100);
 		jPanel1.setPreferredSize(new Dimension(width, height));
 		imageLabel1.setSize(width, height);
 		imageLabel1.setGridParams(row, col, cell_size, left_spc, up_spc);
+		setLocationRelativeTo(null);
 	}
 
 	public void printLog (String str) {

@@ -9,7 +9,7 @@ import java.awt.Component;
 @SuppressWarnings("serial")
 public class AccountsFrame extends javax.swing.JFrame {
 
-	private AccountsHandler handler;
+	private AccountsManager handler;
 
 	public AccountsFrame() {
 		initComponents();
@@ -17,10 +17,9 @@ public class AccountsFrame extends javax.swing.JFrame {
 		RegisterPanel.setVisible(false);
 		StartButton.setVisible(false);
 		pack();
-
 	}
 
-	public void setHandler (AccountsHandler accHandler) {
+	public void setHandler (AccountsManager accHandler) {
 		handler = accHandler;
 	}
 
@@ -94,7 +93,7 @@ public class AccountsFrame extends javax.swing.JFrame {
 
         RegisterPswd.setPreferredSize(new java.awt.Dimension(131, 22));
 
-        RegisterAttemptBtn.setText("Go");
+        RegisterAttemptBtn.setText("Go!");
         RegisterAttemptBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegisterAttemptBtnActionPerformed(evt);
@@ -140,7 +139,10 @@ public class AccountsFrame extends javax.swing.JFrame {
 
         UserLabel1.setText("User #1");
 
-        LoginButton1.setText("go!");
+        LoginField1.setNextFocusableComponent(PswdField1);
+
+        LoginButton1.setText("Enter!");
+        LoginButton1.setNextFocusableComponent(LoginField2);
         LoginButton1.setPreferredSize(new java.awt.Dimension(131, 25));
         LoginButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +150,9 @@ public class AccountsFrame extends javax.swing.JFrame {
             }
         });
 
-        LoginButton2.setText("go!");
+        PswdField1.setNextFocusableComponent(LoginButton1);
+
+        LoginButton2.setText("Enter!");
         LoginButton2.setPreferredSize(new java.awt.Dimension(131, 25));
         LoginButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +166,10 @@ public class AccountsFrame extends javax.swing.JFrame {
         LoginLabel.setToolTipText("");
 
         PswdLabel.setText(" - Password -");
+
+        LoginField2.setNextFocusableComponent(PswdField2);
+
+        PswdField2.setNextFocusableComponent(LoginButton2);
 
         RegisterButton.setText("Register");
         RegisterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +253,8 @@ public class AccountsFrame extends javax.swing.JFrame {
             }
         });
 
+        InfoLabel.setPreferredSize(new java.awt.Dimension(0, 25));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,10 +274,10 @@ public class AccountsFrame extends javax.swing.JFrame {
                 .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(RegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(StartButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(InfoLabel))
+                .addComponent(InfoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -278,7 +288,7 @@ public class AccountsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginButton1ActionPerformed
 
     private void WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WindowClosing
-		handler.Finish();
+		handler.finishXML();
     }//GEN-LAST:event_WindowClosing
 
     private void LoginButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButton2ActionPerformed
@@ -316,6 +326,7 @@ public class AccountsFrame extends javax.swing.JFrame {
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         dispose();
+		handler.finishXML();
 		handler.startGame();
     }//GEN-LAST:event_StartButtonActionPerformed
 
