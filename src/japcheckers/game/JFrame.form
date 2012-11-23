@@ -22,7 +22,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -91,7 +91,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="japcheckers.ImageLabel" name="imageLabel1">
+        <Component class="japcheckers.game.ImageLabel" name="imageLabel1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="alignmentY" type="float" value="0.0"/>
@@ -100,7 +100,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imageLabel1MouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new japcheckers.ImageLabel()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new japcheckers.game.ImageLabel()"/>
           </AuxValues>
         </Component>
       </SubComponents>

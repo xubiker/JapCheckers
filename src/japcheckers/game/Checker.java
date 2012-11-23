@@ -1,5 +1,6 @@
-package japcheckers;
+package japcheckers.game;
 
+import japcheckers.game.Coord;
 import java.util.ArrayList;
 
 /**

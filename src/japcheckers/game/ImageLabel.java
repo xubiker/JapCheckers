@@ -1,5 +1,7 @@
-package japcheckers;
+package japcheckers.game;
 
+import japcheckers.JapCheckers;
+import japcheckers.game.Checker;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;

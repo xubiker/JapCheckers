@@ -1,5 +1,6 @@
-package japcheckers;
+package japcheckers.game;
 
+import japcheckers.xml.XML_Handler;
 import java.awt.Dimension;
 import java.util.Random;
 
@@ -44,7 +45,7 @@ public class JFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        imageLabel1 = new japcheckers.ImageLabel();
+        imageLabel1 = new japcheckers.game.ImageLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -146,7 +147,7 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_imageLabel1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private japcheckers.ImageLabel imageLabel1;
+    private japcheckers.game.ImageLabel imageLabel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

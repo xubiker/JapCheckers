@@ -1,4 +1,4 @@
-package japcheckers;
+package japcheckers.game;
 
 /**
  *
