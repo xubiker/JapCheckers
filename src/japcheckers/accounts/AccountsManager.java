@@ -37,7 +37,7 @@ public class AccountsManager {
 	}
 
 	//**********************************************************************************************
-	public void loginAttempt (String login, String pswd) {
+	public void loginAttempt (int user, String login, String pswd) {
 		User usr = xmlHandler.loginAttempt(login, pswd);
 		if (usr == null) {
 			frame.displayMessage("Invalid login or password");
@@ -45,8 +45,12 @@ public class AccountsManager {
 			if (currentUsers.indexOf(usr) != -1) {
 				frame.displayMessage("User already logged in");
 			} else {
+				if (user == 1)
+					frame.enableUser1Field(false);
+				else if (user == 2)
+					frame.enableUser2Field(false);
 				currentUsers.add(usr);
-				frame.displayMessage("User " + currentUsers.size() + " - successfull login");
+				frame.displayMessage("User" + user + " - successfull login");
 				if (currentUsers.size() == 2) {
 					frame.AllowGame();
 				}

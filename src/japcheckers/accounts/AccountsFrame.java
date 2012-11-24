@@ -11,6 +11,8 @@ public class AccountsFrame extends javax.swing.JFrame {
 
 	private AccountsManager handler;
 
+	private static boolean user1FieldEnabled = true, user2FieldEnabled = true;
+
 	public AccountsFrame() {
 		initComponents();
 		setLocationRelativeTo(null);
@@ -35,6 +37,22 @@ public class AccountsFrame extends javax.swing.JFrame {
 
 	public void displayMessage (String str) {
 		InfoLabel.setText("  " + str);
+	}
+
+	public void enableUser1Field (boolean val) {
+		UserLabel1.setEnabled(val);
+		LoginField1.setEnabled(val);
+		PswdField1.setEnabled(val);
+		LoginButton1.setEnabled(val);
+		user1FieldEnabled = val;
+	}
+
+	public void enableUser2Field (boolean val) {
+		UserLabel2.setEnabled(val);
+		LoginField2.setEnabled(val);
+		PswdField2.setEnabled(val);
+		LoginButton2.setEnabled(val);
+		user2FieldEnabled = val;
 	}
 
 	/**
@@ -284,7 +302,7 @@ public class AccountsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButton1ActionPerformed
-		handler.loginAttempt(LoginField1.getText(), new String(PswdField1.getPassword()));
+		handler.loginAttempt(1, LoginField1.getText(), new String(PswdField1.getPassword()));
     }//GEN-LAST:event_LoginButton1ActionPerformed
 
     private void WindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WindowClosing
@@ -292,7 +310,7 @@ public class AccountsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_WindowClosing
 
     private void LoginButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButton2ActionPerformed
-		handler.loginAttempt(LoginField2.getText(), new String(PswdField2.getPassword()));
+		handler.loginAttempt(2, LoginField2.getText(), new String(PswdField2.getPassword()));
     }//GEN-LAST:event_LoginButton2ActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
@@ -306,9 +324,13 @@ public class AccountsFrame extends javax.swing.JFrame {
 			pack();
 		} else {
 			RegisterPanel.setVisible(false);
-			for (Component c : LoginPanel.getComponents()) {
-				c.setEnabled(true);
-			}
+			LoginLabel.setEnabled(true);
+			PswdLabel.setEnabled(true);
+			enableUser1Field(user1FieldEnabled);
+			enableUser2Field(user2FieldEnabled);
+//			for (Component c : LoginPanel.getComponents()) {
+//				c.setEnabled(true);
+//			}
 			LoginPanel.setEnabled(true);
 			pack();
 		}

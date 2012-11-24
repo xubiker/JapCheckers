@@ -128,13 +128,16 @@ public class GameFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-		int x, y, cnt = 0;
+		int x, y, cnt = 0, breakcounter = 0;
 		while (cnt < 16) {
 			x = rnd.nextInt(col + 1);
 			y = rnd.nextInt(row + 1);
 			if (handler.coordIsEmpty(x, y)) {
 				handler.newChecker(x, y);
 				cnt++;
+			} else {
+				if (breakcounter++ > 1000)
+					break;
 			}
 		}
     }//GEN-LAST:event_jButton1MouseClicked
