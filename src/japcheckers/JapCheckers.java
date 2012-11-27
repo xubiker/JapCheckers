@@ -31,7 +31,7 @@ public class JapCheckers {
 	 */
 	public static void main(String[] args) {
 
-		gHandler = new GameHandler(2);
+		gHandler = new GameHandler();
 		startGameListener = new StartGameListener(gHandler);
 
 		applyVisualStyle();

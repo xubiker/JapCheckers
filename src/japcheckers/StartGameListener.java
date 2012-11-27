@@ -1,14 +1,14 @@
 package japcheckers;
 
-import japcheckers.events.JapEvent;
-import japcheckers.events.JapListener;
+import japcheckers.events.JCListener;
+import japcheckers.events.JCStartGameEvent;
 import japcheckers.game.GameHandler;
 
 /**
  *
  * @author Александр
  */
-public class StartGameListener implements JapListener {
+public class StartGameListener implements JCListener {
 
 	private GameHandler gHandler;
 
@@ -17,9 +17,13 @@ public class StartGameListener implements JapListener {
 	}
 
 	@Override
-	public void Signal(JapEvent event) {
+	public void Signal(JCStartGameEvent event) {
 		if ("start_game".equals(event.getMessage())) {
-			gHandler.createFrame();
+			try {
+				gHandler.StartGame(event.getUsers());
+			} catch (JCException ex) {
+				System.out.println(ex.getMessage());
+			}
 		}
 		System.out.println(event);
 	}

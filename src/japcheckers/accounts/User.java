@@ -4,11 +4,14 @@ package japcheckers.accounts;
  *
  * @author Александр
  */
-public class User {
+
+public class User implements CurrentGame {
 	private int uid;
 	private String nick;
 	private int wins_cnt;
-
+	// variebles for current game
+	private int CG_turn;
+	private int CG_capturedEnemiesCnt = 0;
 
 	public User(int uid, String nick, int wins_cnt) {
 		this.uid = uid;
@@ -27,6 +30,31 @@ public class User {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int getTurn() {
+		return CG_turn;
+	}
+
+	@Override
+	public void setTurn(int val) {
+		CG_turn = val;
+	}
+
+	@Override
+	public int getCapturedEnemiesCnt() {
+		return CG_capturedEnemiesCnt;
+	}
+
+	@Override
+	public void addCapturedEnemies(int val) {
+		CG_capturedEnemiesCnt += val;
+	}
+
+	@Override
+	public void addCapturedEnemies() {
+		CG_capturedEnemiesCnt++;
 	}
 
 }

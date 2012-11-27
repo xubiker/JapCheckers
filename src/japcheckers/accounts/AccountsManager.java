@@ -1,7 +1,7 @@
 package japcheckers.accounts;
 
-import japcheckers.events.EventProducer;
-import japcheckers.events.JapListener;
+import japcheckers.events.JCEventProducer;
+import japcheckers.events.JCListener;
 import japcheckers.xml.XML_Manager;
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public class AccountsManager {
 	private XML_Manager xmlHandler;
 	private ArrayList<User> currentUsers;
 
-	private EventProducer eventProducer;
+	private JCEventProducer eventProducer;
 
 	public void createFrame () {
 		frame = new AccountsFrame();
@@ -23,17 +23,17 @@ public class AccountsManager {
 	}
 
 	public AccountsManager () {
-		eventProducer = new EventProducer();
+		eventProducer = new JCEventProducer();
 		currentUsers = new ArrayList<>();
 		xmlHandler = new XML_Manager("accounts.xml");
 	}
 
-	public void addListener (JapListener lst) {
+	public void addListener (JCListener lst) {
 		eventProducer.addListener(lst);
 	}
 
 	public void startGame () {
-		eventProducer.doWork("start_game");
+		eventProducer.doWork("start_game", currentUsers);
 	}
 
 	//**********************************************************************************************

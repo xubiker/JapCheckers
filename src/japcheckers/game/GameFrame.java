@@ -1,6 +1,8 @@
 package japcheckers.game;
 
+import japcheckers.Pair;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -39,6 +41,18 @@ public class GameFrame extends javax.swing.JFrame {
 		jTextArea1.append(str);
 	}
 
+	public void updateScore (ArrayList<Pair<String, Integer>> gamers_scores, int turn) {
+		String str = "   Score:\r\n";
+		for (int i = 0; i < gamers_scores.size(); i++) {
+			if (i == turn)
+				str += "->";
+			else
+				str += "  ";
+			str += " " + gamers_scores.get(i).x + " - " + gamers_scores.get(i).y.toString() + "\r\n";
+			jScoreArea.setText(str);
+		}
+	}
+
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,6 +62,8 @@ public class GameFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScoreArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,6 +114,18 @@ public class GameFrame extends javax.swing.JFrame {
         jTextArea1.setAlignmentY(0.0F);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jScrollPane2.setToolTipText("");
+
+        jScoreArea.setEditable(false);
+        jScoreArea.setColumns(20);
+        jScoreArea.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jScoreArea.setRows(5);
+        jScoreArea.setText("   Score:");
+        jScoreArea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScoreArea.setFocusable(false);
+        jScoreArea.setRequestFocusEnabled(false);
+        jScrollPane2.setViewportView(jScoreArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,10 +134,11 @@ public class GameFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,6 +147,8 @@ public class GameFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
@@ -152,7 +183,9 @@ public class GameFrame extends javax.swing.JFrame {
     private japcheckers.game.ImageLabel imageLabel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextArea jScoreArea;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

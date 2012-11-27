@@ -1,5 +1,8 @@
 package japcheckers.game;
 
+import japcheckers.JCException;
+import japcheckers.Pair;
+import japcheckers.accounts.User;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,11 +13,12 @@ import java.util.Set;
  */
 public class GameHandler {
 
-	private int turn;
+	private int turn; // turn is associated with corresponding gamer
 	private int gamers_cnt, row = 25, col = 25;
 	private ArrayList<Checker> checkers;
 	private GameFrame frame;
 	private ArrayList<ArrayList<Checker>> matrix;
+	private ArrayList<User> gamers;
 
 	//**********************************************************************************************
 	private void nextTurn() {
@@ -29,8 +33,17 @@ public class GameHandler {
 	}
 
 	//**********************************************************************************************
-	public GameHandler(int gamers_cnt) {
-		this.gamers_cnt = gamers_cnt;
+	public GameHandler() {
+
+	}
+
+	//**********************************************************************************************
+	public void StartGame (ArrayList<User> gamers) throws JCException {
+		if (gamers == null || gamers.isEmpty()) {
+			throw (new JCException());
+		}
+		this.gamers = gamers;
+		gamers_cnt = gamers.size();
 		turn = 0;
 		checkers = new ArrayList<>();
 		matrix = new ArrayList<>();
@@ -41,6 +54,7 @@ public class GameHandler {
 			}
 			matrix.add(_col);
 		}
+		createFrame();
 	}
 
 	//**********************************************************************************************
@@ -80,6 +94,7 @@ public class GameHandler {
 		}
 		frame.getImageLabel().addChecker(ch);
 		frame.getImageLabel().repaint();
+		updateGameScore();
 		nextTurn();
 	}
 
@@ -368,7 +383,7 @@ public class GameHandler {
 
 	//**********************************************************************************************
 	public int checkInside( ArrayList<Checker> circuit, Checker a) {
-	// return value: 0 - outside; 1 - border; 2 - inside
+		// return value: 0 - outside; 1 - border; 2 - inside
 		int lh = circuit.size();
 	    double res = 0;
 		for (int i = 1; i <= lh; i++ ) {
@@ -377,7 +392,6 @@ public class GameHandler {
 										   circuit.get(i % lh).getCrd().getX() - a.getCrd().getX(),
 										   circuit.get(i % lh).getCrd().getY() - a.getCrd().getY());
 		}
-		//return (int)Math.round((Math.abs(res / Math.PI)));
 		int r = (int)Math.round((Math.abs(res * 4 / Math.PI)));
         if (r == 0 ) {
 			return 0;
@@ -397,6 +411,7 @@ public class GameHandler {
 				result = true;
 				ch.setState(Checker.State.CAPTURED);
 				unbindNeighbors(ch);
+				gamers.get(turn).addCapturedEnemies();
 				System.out.println("CAPTURED " + ch.getID());
 			}
 		}
@@ -409,6 +424,17 @@ public class GameHandler {
 			}
 		}
 		return result;
+	}
+
+	//**********************************************************************************************
+	public void updateGameScore () {
+		ArrayList<Pair<String, Integer>> gamers_score = new ArrayList<>();
+		for (int i = 0; i < gamers_cnt; i++) {
+			Pair<String, Integer> pair;
+			pair = new Pair(gamers.get(i).getNick(), gamers.get(i).getCapturedEnemiesCnt());
+			gamers_score.add(pair);
+		}
+		frame.updateScore(gamers_score, turn);
 	}
 
 	//**********************************************************************************************
