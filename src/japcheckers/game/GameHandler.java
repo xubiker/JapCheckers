@@ -3,6 +3,8 @@ package japcheckers.game;
 import japcheckers.JCException;
 import japcheckers.Pair;
 import japcheckers.accounts.User;
+import japcheckers.events.JCEventProducer;
+import japcheckers.events.JCListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +22,9 @@ public class GameHandler {
 	private ArrayList<ArrayList<Checker>> matrix;
 	private ArrayList<User> gamers;
 
+	private JCEventProducer eventProducer;
+
+
 	//**********************************************************************************************
 	private void nextTurn() {
 		turn = (turn + 1) % gamers_cnt;
@@ -34,7 +39,18 @@ public class GameHandler {
 
 	//**********************************************************************************************
 	public GameHandler() {
+		eventProducer = new JCEventProducer();
+	}
 
+	//**********************************************************************************************
+	public void addListener (JCListener lst) {
+		eventProducer.addListener(lst);
+	}
+
+	//**********************************************************************************************
+	public void finishGame () {
+		frame.dispose();
+		eventProducer.doWork("finish_game", gamers);
 	}
 
 	//**********************************************************************************************

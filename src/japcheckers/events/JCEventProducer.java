@@ -20,14 +20,14 @@ public class JCEventProducer {
 	}
 
 	protected void fire(String message, ArrayList<User> users) {
-		JCStartGameEvent ev = new JCStartGameEvent(this, message, users);
+		JCGameEvent ev = new JCGameEvent(this, message, users);
 		for (JCListener listener : listeners) {
 			listener.Signal(ev);
 		}
 	}
 
 	protected void fire(String Message) {
-		JCStartGameEvent ev = new JCStartGameEvent(this, Message, null);
+		JCGameEvent ev = new JCGameEvent(this, Message, null);
 		for (JCListener listener : listeners) {
 			listener.Signal(ev);
 		}

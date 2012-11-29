@@ -9,30 +9,30 @@ import java.util.EventObject;
  * @author Александр
  */
 @SuppressWarnings("serial")
-public class JCStartGameEvent extends EventObject {
+public class JCGameEvent extends EventObject {
 
 	private String message;
 	private ArrayList<User> users;
 
-	public JCStartGameEvent(Object source, String message, ArrayList<User> users) {
+	public JCGameEvent(Object source, String message, ArrayList<User> users) {
 		super(source);
 		this.message = message;
 		this.users = users;
 	}
 
-	public JCStartGameEvent(Object source) {
+	public JCGameEvent(Object source) {
 		this(source, "", null);
 	}
 
-	public JCStartGameEvent(String message) {
+	public JCGameEvent(String message) {
 		this(null, message, null);
 	}
 
-	public JCStartGameEvent(ArrayList<User> users) {
+	public JCGameEvent(ArrayList<User> users) {
 		this(null, "", users);
 	}
 
-	public JCStartGameEvent() {
+	public JCGameEvent() {
 		this(null, "", null);
 	}
 

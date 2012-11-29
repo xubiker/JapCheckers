@@ -64,6 +64,7 @@ public class GameFrame extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScoreArea = new javax.swing.JTextArea();
+        jFinishButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,6 +127,13 @@ public class GameFrame extends javax.swing.JFrame {
         jScoreArea.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(jScoreArea);
 
+        jFinishButton.setText("Finish Game!");
+        jFinishButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFinishButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,7 +145,8 @@ public class GameFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(jFinishButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
@@ -151,7 +160,9 @@ public class GameFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jFinishButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(132, Short.MAX_VALUE))
         );
 
@@ -179,9 +190,14 @@ public class GameFrame extends javax.swing.JFrame {
 		handler.newChecker(x, y);
     }//GEN-LAST:event_imageLabel1MouseClicked
 
+    private void jFinishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFinishButtonActionPerformed
+		handler.finishGame();
+    }//GEN-LAST:event_jFinishButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private japcheckers.game.ImageLabel imageLabel1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jFinishButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextArea jScoreArea;
     private javax.swing.JScrollPane jScrollPane1;

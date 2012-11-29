@@ -1,7 +1,8 @@
-package japcheckers;
+package japcheckers.events.listeners;
 
+import japcheckers.JCException;
+import japcheckers.events.JCGameEvent;
 import japcheckers.events.JCListener;
-import japcheckers.events.JCStartGameEvent;
 import japcheckers.game.GameHandler;
 
 /**
@@ -17,7 +18,7 @@ public class StartGameListener implements JCListener {
 	}
 
 	@Override
-	public void Signal(JCStartGameEvent event) {
+	public void Signal(JCGameEvent event) {
 		if ("start_game".equals(event.getMessage())) {
 			try {
 				gHandler.StartGame(event.getUsers());

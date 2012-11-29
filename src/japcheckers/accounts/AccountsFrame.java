@@ -107,11 +107,14 @@ public class AccountsFrame extends javax.swing.JFrame {
 
         RegisterPswdLabel.setText("Password");
 
+        RegisterLogin.setNextFocusableComponent(RegisterPswd);
         RegisterLogin.setPreferredSize(new java.awt.Dimension(131, 22));
 
+        RegisterPswd.setNextFocusableComponent(RegisterAttemptBtn);
         RegisterPswd.setPreferredSize(new java.awt.Dimension(131, 22));
 
         RegisterAttemptBtn.setText("Go!");
+        RegisterAttemptBtn.setNextFocusableComponent(RegisterButton);
         RegisterAttemptBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegisterAttemptBtnActionPerformed(evt);

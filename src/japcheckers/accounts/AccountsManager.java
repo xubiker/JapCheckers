@@ -3,6 +3,7 @@ package japcheckers.accounts;
 import japcheckers.events.JCEventProducer;
 import japcheckers.events.JCListener;
 import japcheckers.xml.XML_Manager;
+import java.awt.Dialog;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +35,13 @@ public class AccountsManager {
 
 	public void startGame () {
 		eventProducer.doWork("start_game", currentUsers);
+	}
+
+	//**********************************************************************************************
+	public void finishGame (ArrayList<User> gamers) {
+		System.out.println("ACCOUNT MANAGER - FINISH GAME");
+		for (User usr : gamers)
+			System.out.println(usr.getNick());
 	}
 
 	//**********************************************************************************************

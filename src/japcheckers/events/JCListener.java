@@ -6,5 +6,5 @@ package japcheckers.events;
  */
 public interface JCListener {
 
-	public void Signal(JCStartGameEvent myEvent);
+	public void Signal(JCGameEvent myEvent);
 }
