@@ -1,5 +1,6 @@
 package japcheckers.xml;
 
+import japcheckers.Pair;
 import japcheckers.accounts.User;
 import java.io.File;
 import java.io.IOException;
@@ -43,8 +44,11 @@ public class XML_Manager {
 
 	private static int currentID = 0;
 
-	private static void nextID() {
+	//**********************************************************************************************
+	private static int generateID() {
+		int res = currentID;
 		currentID++;
+		return res;
 	}
 
 	//**********************************************************************************************
@@ -76,7 +80,27 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	private Element addUser (String _nick, String _password, int _winsCnt) {
+	private Element addUserToXML (User usr) {
+		Element usrElem = doc.createElement("user");
+		rootElement.appendChild(usrElem);
+
+		// set attribute to user element
+		usrElem.setAttribute("id", Integer.toString(usr.getID()));
+
+		for (Pair<String, String> p : usr.getAllProperties()) {
+			Element elem = doc.createElement(p.x);
+			elem.appendChild(doc.createTextNode(p.y));
+			usrElem.appendChild(elem);
+		}
+
+		lastevent = LastEvent.WRITE;
+		modified = true;
+//		nextID();
+		return usrElem;
+	}
+
+	//**********************************************************************************************
+	private Element addUserToXML (String _nick, String _password) {
 		Element user = doc.createElement("user");
 		rootElement.appendChild(user);
 
@@ -93,14 +117,9 @@ public class XML_Manager {
 		pswd.appendChild(doc.createTextNode(_password));
 		user.appendChild(pswd);
 
-		// create winCnt element
-		Element winsCnt = doc.createElement("wins");
-		winsCnt.appendChild(doc.createTextNode(Integer.toString(_winsCnt)));
-		user.appendChild(winsCnt);
-
 		lastevent = LastEvent.WRITE;
 		modified = true;
-		nextID();
+//		generateID();
 		return user;
 	}
 
@@ -117,9 +136,9 @@ public class XML_Manager {
 		for (int i = 0; i < users.getLength(); i++) {
 			Node nNode = users.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element userElem = (Element) nNode;
-				if (_nick.equals(getTagValue("nick", userElem))) {
-					return userElem;
+				Element usrElem = (Element) nNode;
+				if (_nick.equals(getTagValue("nick", usrElem))) {
+					return usrElem;
 				}
 			}
 		}
@@ -150,40 +169,58 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	private User fillUser (Element usr) {
+	private User getUserFromXML (Element usrElem) {
 		// Create new User and fill all its properties
-		if (usr == null || usr.getNodeType() != Node.ELEMENT_NODE)
+		if (usrElem == null || usrElem.getNodeType() != Node.ELEMENT_NODE)
 			return null;
-		int uid = Integer.parseInt(getAttributeValue("id", usr));
-		String nick = getTagValue("nick", usr);
-		int wins_cnt = Integer.parseInt(getTagValue("wins", usr));
-		return new User(uid, nick, wins_cnt);
+		int uid = Integer.parseInt(getAttributeValue("id", usrElem));
+		String nick = getTagValue("nick", usrElem);
+		String pswd = getTagValue("pswd", usrElem);
+		User resUser = new User(uid, nick, pswd);
+		int wins = Integer.parseInt(getTagValue("wins", usrElem));
+		int losses = Integer.parseInt(getTagValue("losses", usrElem));
+		int score = Integer.parseInt(getTagValue("score", usrElem));
+		int skill = Integer.parseInt(getTagValue("skill", usrElem));
+		resUser.fillInfo(wins, losses, score, skill);
+		return resUser;
+	}
+
+	//**********************************************************************************************
+	public void updateUser (User usr) {
+		Element usrElem = searchUser(usr.getNick());
+		if (usrElem == null) {
+			return;
+		}
+		for (Pair<String, String> p : usr.getSafeProperties()) {
+			modifyTagValue(p.x, usrElem, p.y);
+		}
+		lastevent = LastEvent.WRITE;
+		modified = true;
 	}
 
 	//**********************************************************************************************
 	public User loginAttempt (String _nick, String _pswd) {
-		Element user = searchUser(_nick);
-		if (user == null) {
+		Element usrElem = searchUser(_nick);
+		if (usrElem == null) {
 			return null;
 		}
-		if (user.getNodeType() == Node.ELEMENT_NODE) {
-			if (!_pswd.equals(getTagValue("pswd", user))) {
+		if (usrElem.getNodeType() == Node.ELEMENT_NODE) {
+			if (!_pswd.equals(getTagValue("pswd", usrElem))) {
 				return null;
 			}
 		}
-		User usr_res = fillUser(user);
-		return usr_res;
+		return getUserFromXML(usrElem);
 	}
 
 	//**********************************************************************************************
 	public User registerAttempt (String _nick, String _pswd) {
-		Element user = searchUser(_nick);
-		if (user != null) {
+		Element usrElem = searchUser(_nick);
+		if (usrElem != null) {
 			return null;
 		}
-		user = addUser(_nick, _pswd, 0);
-		User usr_res = fillUser(user);
-		return usr_res;
+		User newUsr = new User(generateID(), _nick, _pswd);
+		addUserToXML(newUsr);
+		return newUsr;
 	}
 
 	//**********************************************************************************************

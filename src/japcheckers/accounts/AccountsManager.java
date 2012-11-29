@@ -3,7 +3,6 @@ package japcheckers.accounts;
 import japcheckers.events.JCEventProducer;
 import japcheckers.events.JCListener;
 import japcheckers.xml.XML_Manager;
-import java.awt.Dialog;
 import java.util.ArrayList;
 
 /**
@@ -40,8 +39,12 @@ public class AccountsManager {
 	//**********************************************************************************************
 	public void finishGame (ArrayList<User> gamers) {
 		System.out.println("ACCOUNT MANAGER - FINISH GAME");
-		for (User usr : gamers)
+		for (User usr : gamers) {
 			System.out.println(usr.getNick());
+			usr.setWinsCnt(13);
+			xmlHandler.updateUser(usr);
+		}
+		finishXML();
 	}
 
 	//**********************************************************************************************
