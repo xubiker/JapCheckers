@@ -32,6 +32,7 @@ public class AccountsManager {
 		eventProducer.addListener(lst);
 	}
 
+	//**********************************************************************************************
 	public void startGame () {
 		eventProducer.doWork("start_game", currentUsers);
 	}
@@ -39,12 +40,30 @@ public class AccountsManager {
 	//**********************************************************************************************
 	public void finishGame (ArrayList<User> gamers) {
 		System.out.println("ACCOUNT MANAGER - FINISH GAME");
+		//--------------------------- update statistics and write it to XML
+		int max_score = 1;
+		ArrayList<User> winners = new ArrayList<>();
 		for (User usr : gamers) {
-			System.out.println(usr.getNick());
-			usr.setWinsCnt(13);
+			int t = usr.getCapturedEnemiesCnt();
+			if (t > max_score) {
+				max_score = t;
+				winners.clear();
+				winners.add(usr);
+			} else if (t == max_score) {
+				winners.add(usr);
+			}
+			usr.incTotalScore(t);
+		}
+		for (User usr : gamers) {
+			if (winners.indexOf(usr) != -1) {
+				usr.incWinsCnt();
+			} else {
+				usr.incLossesCnt();
+			}
 			xmlHandler.updateUser(usr);
 		}
 		finishXML();
+		//-----------------------
 	}
 
 	//**********************************************************************************************

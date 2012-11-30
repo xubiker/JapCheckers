@@ -427,7 +427,7 @@ public class GameHandler {
 				result = true;
 				ch.setState(Checker.State.CAPTURED);
 				unbindNeighbors(ch);
-				gamers.get(turn).addCapturedEnemies();
+				gamers.get(turn).incCapturedEnemies();
 				System.out.println("CAPTURED " + ch.getID());
 			}
 		}

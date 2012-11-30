@@ -55,12 +55,24 @@ public class User implements CurrentGame {
 		winsCnt = val;
 	}
 
+	public void incWinsCnt () {
+		winsCnt++;
+	}
+
 	public int getLossesCnt () {
 		return lossesCnt;
 	}
 
+	public void incLossesCnt () {
+		lossesCnt++;
+	}
+
 	public int getTotalScore () {
 		return totalScore;
+	}
+
+	public void incTotalScore (int val) {
+		totalScore += val;
 	}
 
 	public int getSkill () {
@@ -112,12 +124,12 @@ public class User implements CurrentGame {
 	}
 
 	@Override
-	public void addCapturedEnemies(int val) {
+	public void incCapturedEnemies(int val) {
 		CG_capturedEnemiesCnt += val;
 	}
 
 	@Override
-	public void addCapturedEnemies() {
+	public void incCapturedEnemies() {
 		CG_capturedEnemiesCnt++;
 	}
 
