@@ -10,12 +10,12 @@ import java.util.Random;
  * @author Александр
  */
 @SuppressWarnings("serial")
-public class GameFrame extends javax.swing.JFrame {
+public class JCGameFrame extends javax.swing.JFrame {
 	private GameHandler handler;
 	private int row, col, cell_size = 35, left_spc = 10, up_spc = 10;
 	private static Random rnd;
 
-	public ImageLabel getImageLabel () {
+	public JCImageLabel getImageLabel () {
 		return imageLabel1;
 	}
 
@@ -23,7 +23,7 @@ public class GameFrame extends javax.swing.JFrame {
 		handler = gh;
 	}
 
-	public GameFrame(int row, int col) {
+	public JCGameFrame(int row, int col) {
 		this.row = row;
 		this.col = col;
 		rnd = new Random();
@@ -39,6 +39,13 @@ public class GameFrame extends javax.swing.JFrame {
 
 	public void printLog (String str) {
 		jTextArea1.append(str);
+	}
+
+	public void showDialog (String content) {
+		JCResultFrame rFrame = new JCResultFrame();
+		rFrame.setVisible(true);
+		rFrame.setLocationRelativeTo(null);
+		rFrame.setContent(content);
 	}
 
 	public void updateScore (ArrayList<Pair<String, Integer>> gamers_scores, int turn) {
@@ -58,7 +65,7 @@ public class GameFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        imageLabel1 = new japcheckers.game.ImageLabel();
+        imageLabel1 = new japcheckers.game.JCImageLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -195,7 +202,7 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jFinishButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private japcheckers.game.ImageLabel imageLabel1;
+    private japcheckers.game.JCImageLabel imageLabel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jFinishButton;
     private javax.swing.JPanel jPanel1;

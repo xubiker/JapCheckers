@@ -4,46 +4,47 @@ import japcheckers.events.JCEventProducer;
 import japcheckers.events.JCListener;
 import japcheckers.xml.XML_Manager;
 import java.util.ArrayList;
+import javax.swing.JDialog;
 
 /**
  *
  * @author Александр
  */
 public class AccountsManager {
-	private AccountsFrame frame;
-	private XML_Manager xmlHandler;
-	private ArrayList<User> currentUsers;
 
+	private JCAccountsFrame frame;
+	private XML_Manager xmlHandler;
+	private ArrayList<JCUser> currentUsers;
 	private JCEventProducer eventProducer;
 
-	public void createFrame () {
-		frame = new AccountsFrame();
+	public void createFrame() {
+		frame = new JCAccountsFrame();
 		frame.setHandler(this);
 		frame.setVisible(true);
 	}
 
-	public AccountsManager () {
+	public AccountsManager() {
 		eventProducer = new JCEventProducer();
 		currentUsers = new ArrayList<>();
 		xmlHandler = new XML_Manager("accounts.xml");
 	}
 
-	public void addListener (JCListener lst) {
+	public void addListener(JCListener lst) {
 		eventProducer.addListener(lst);
 	}
 
 	//**********************************************************************************************
-	public void startGame () {
+	public void startGame() {
 		eventProducer.doWork("start_game", currentUsers);
 	}
 
 	//**********************************************************************************************
-	public void finishGame (ArrayList<User> gamers) {
+	public void finishGame(ArrayList<JCUser> gamers) {
 		System.out.println("ACCOUNT MANAGER - FINISH GAME");
 		//--------------------------- update statistics and write it to XML
 		int max_score = 1;
-		ArrayList<User> winners = new ArrayList<>();
-		for (User usr : gamers) {
+		ArrayList<JCUser> winners = new ArrayList<>();
+		for (JCUser usr : gamers) {
 			int t = usr.getCapturedEnemiesCnt();
 			if (t > max_score) {
 				max_score = t;
@@ -54,7 +55,7 @@ public class AccountsManager {
 			}
 			usr.incTotalScore(t);
 		}
-		for (User usr : gamers) {
+		for (JCUser usr : gamers) {
 			if (winners.indexOf(usr) != -1) {
 				usr.incWinsCnt();
 			} else {
@@ -64,21 +65,31 @@ public class AccountsManager {
 		}
 		finishXML();
 		//-----------------------
+		String resStr = "Winners:\r\n";
+		if (winners.isEmpty()) {
+			resStr += "There are no winners. =(";
+		} else {
+			for (JCUser usr : winners) {
+				resStr += usr.getNick() + "\r\n";
+			}
+		}
+		eventProducer.doWork("show_result", resStr);
 	}
 
 	//**********************************************************************************************
-	public void loginAttempt (int user, String login, String pswd) {
-		User usr = xmlHandler.loginAttempt(login, pswd);
+	public void loginAttempt(int user, String login, String pswd) {
+		JCUser usr = xmlHandler.loginAttempt(login, pswd);
 		if (usr == null) {
 			frame.displayMessage("Invalid login or password");
 		} else {
 			if (currentUsers.indexOf(usr) != -1) {
 				frame.displayMessage("User already logged in");
 			} else {
-				if (user == 1)
+				if (user == 1) {
 					frame.enableUser1Field(false);
-				else if (user == 2)
+				} else if (user == 2) {
 					frame.enableUser2Field(false);
+				}
 				currentUsers.add(usr);
 				frame.displayMessage("User" + user + " - successfull login");
 				if (currentUsers.size() == 2) {
@@ -89,8 +100,8 @@ public class AccountsManager {
 	}
 
 	//**********************************************************************************************
-	public void registerAttempt (String login, String pswd) {
-		User usr = xmlHandler.registerAttempt(login, pswd);
+	public void registerAttempt(String login, String pswd) {
+		JCUser usr = xmlHandler.registerAttempt(login, pswd);
 		if (usr == null) {
 			frame.displayMessage("User with simular name already exists");
 		} else {
@@ -99,7 +110,7 @@ public class AccountsManager {
 	}
 
 	//**********************************************************************************************
-	public void finishXML () {
+	public void finishXML() {
 		xmlHandler.Finish();
 	}
 }

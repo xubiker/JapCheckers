@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Александр
  */
 
-public class User implements CurrentGame {
+public class JCUser implements CurrentGame {
 
 	private int uid;
 	private String nick;
@@ -22,7 +22,7 @@ public class User implements CurrentGame {
 	private int CG_turn;
 	private int CG_capturedEnemiesCnt = 0;
 
-	public User(int uid, String nick, String pswd) {
+	public JCUser(int uid, String nick, String pswd) {
 		this.uid = uid;
 		this.nick = nick;
 		this.pswd = pswd;
@@ -101,7 +101,7 @@ public class User implements CurrentGame {
 
 	@Override
 	public boolean equals (Object obj) {
-		User inputUsr = (User)obj;
+		JCUser inputUsr = (JCUser)obj;
 		if (this.nick.equals(inputUsr.getNick())) {
 			return true;
 		}

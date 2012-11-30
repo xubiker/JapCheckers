@@ -7,13 +7,13 @@ import java.awt.Component;
  * @author Александр
  */
 @SuppressWarnings("serial")
-public class AccountsFrame extends javax.swing.JFrame {
+public class JCAccountsFrame extends javax.swing.JFrame {
 
 	private AccountsManager handler;
 
 	private static boolean user1FieldEnabled = true, user2FieldEnabled = true;
 
-	public AccountsFrame() {
+	public JCAccountsFrame() {
 		initComponents();
 		setLocationRelativeTo(null);
 		RegisterPanel.setVisible(false);
@@ -37,6 +37,10 @@ public class AccountsFrame extends javax.swing.JFrame {
 
 	public void displayMessage (String str) {
 		InfoLabel.setText("  " + str);
+	}
+
+	public void showDialog () {
+		jDialog1.setVisible(true);
 	}
 
 	public void enableUser1Field (boolean val) {
@@ -65,6 +69,7 @@ public class AccountsFrame extends javax.swing.JFrame {
 
         jPasswordField1 = new javax.swing.JPasswordField();
         jTextField1 = new javax.swing.JTextField();
+        jDialog1 = new javax.swing.JDialog();
         RegisterPanel = new javax.swing.JPanel();
         RegisterLoginLabel = new javax.swing.JLabel();
         RegisterPswdLabel = new javax.swing.JLabel();
@@ -89,6 +94,19 @@ public class AccountsFrame extends javax.swing.JFrame {
         jPasswordField1.setText("jPasswordField1");
 
         jTextField1.setText("jTextField1");
+
+        jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Accounts Manager");
@@ -331,9 +349,6 @@ public class AccountsFrame extends javax.swing.JFrame {
 			PswdLabel.setEnabled(true);
 			enableUser1Field(user1FieldEnabled);
 			enableUser2Field(user2FieldEnabled);
-//			for (Component c : LoginPanel.getComponents()) {
-//				c.setEnabled(true);
-//			}
 			LoginPanel.setEnabled(true);
 			pack();
 		}
@@ -376,6 +391,7 @@ public class AccountsFrame extends javax.swing.JFrame {
     private javax.swing.JButton StartButton;
     private javax.swing.JLabel UserLabel1;
     private javax.swing.JLabel UserLabel2;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

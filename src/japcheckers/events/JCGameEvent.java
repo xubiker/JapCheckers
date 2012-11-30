@@ -1,6 +1,6 @@
 package japcheckers.events;
 
-import japcheckers.accounts.User;
+import japcheckers.accounts.JCUser;
 import java.util.ArrayList;
 import java.util.EventObject;
 
@@ -12,35 +12,41 @@ import java.util.EventObject;
 public class JCGameEvent extends EventObject {
 
 	private String message;
-	private ArrayList<User> users;
+	private String content;
+	private ArrayList<JCUser> users;
 
-	public JCGameEvent(Object source, String message, ArrayList<User> users) {
+	public JCGameEvent(Object source, String message, ArrayList<JCUser> users, String content) {
 		super(source);
 		this.message = message;
 		this.users = users;
+		this.content = content;
 	}
 
 	public JCGameEvent(Object source) {
-		this(source, "", null);
+		this(source, "", null, "");
 	}
 
 	public JCGameEvent(String message) {
-		this(null, message, null);
+		this(null, message, null, "");
 	}
 
-	public JCGameEvent(ArrayList<User> users) {
-		this(null, "", users);
+	public JCGameEvent(ArrayList<JCUser> users) {
+		this(null, "", users, "");
 	}
 
 	public JCGameEvent() {
-		this(null, "", null);
+		this(null, "", null, "");
 	}
 
 	public String getMessage() {
 		return message;
 	}
 
-	public ArrayList<User> getUsers() {
+	public String getContent() {
+		return content;
+	}
+
+	public ArrayList<JCUser> getUsers() {
 		return users;
 	}
 

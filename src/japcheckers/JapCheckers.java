@@ -2,6 +2,7 @@ package japcheckers;
 
 import japcheckers.accounts.AccountsManager;
 import japcheckers.events.listeners.FinishGameListener;
+import japcheckers.events.listeners.ShowResultListener;
 import japcheckers.events.listeners.StartGameListener;
 import japcheckers.game.GameHandler;
 
@@ -15,6 +16,7 @@ public class JapCheckers {
 	private static AccountsManager accManager;
 	private static StartGameListener startGameListener;
 	private static FinishGameListener finishGameListener;
+	private static ShowResultListener showResultListener;
 
 	//**********************************************************************************************
 	private static void applyVisualStyle() {
@@ -40,9 +42,11 @@ public class JapCheckers {
 		accManager = new AccountsManager();
 		startGameListener = new StartGameListener(gHandler);
 		finishGameListener = new FinishGameListener(accManager);
+		showResultListener = new ShowResultListener(gHandler);
 
 		applyVisualStyle();
 		accManager.addListener(startGameListener);
+		accManager.addListener(showResultListener);
 		gHandler.addListener(finishGameListener);
 		accManager.createFrame();
 	}

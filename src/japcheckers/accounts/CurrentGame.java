@@ -10,5 +10,4 @@ public interface CurrentGame {
 	public int getCapturedEnemiesCnt ();
 	public void incCapturedEnemies (int val);
 	public void incCapturedEnemies ();
-
 }

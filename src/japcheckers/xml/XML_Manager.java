@@ -1,7 +1,7 @@
 package japcheckers.xml;
 
 import japcheckers.Pair;
-import japcheckers.accounts.User;
+import japcheckers.accounts.JCUser;
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
@@ -80,7 +80,7 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	private Element addUserToXML (User usr) {
+	private Element addUserToXML (JCUser usr) {
 		Element usrElem = doc.createElement("user");
 		rootElement.appendChild(usrElem);
 
@@ -169,14 +169,14 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	private User getUserFromXML (Element usrElem) {
+	private JCUser getUserFromXML (Element usrElem) {
 		// Create new User and fill all its properties
 		if (usrElem == null || usrElem.getNodeType() != Node.ELEMENT_NODE)
 			return null;
 		int uid = Integer.parseInt(getAttributeValue("id", usrElem));
 		String nick = getTagValue("nick", usrElem);
 		String pswd = getTagValue("pswd", usrElem);
-		User resUser = new User(uid, nick, pswd);
+		JCUser resUser = new JCUser(uid, nick, pswd);
 		int wins = Integer.parseInt(getTagValue("wins", usrElem));
 		int losses = Integer.parseInt(getTagValue("losses", usrElem));
 		int score = Integer.parseInt(getTagValue("score", usrElem));
@@ -186,7 +186,7 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	public void updateUser (User usr) {
+	public void updateUser (JCUser usr) {
 		Element usrElem = searchUser(usr.getNick());
 		if (usrElem == null) {
 			return;
@@ -199,7 +199,7 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	public User loginAttempt (String _nick, String _pswd) {
+	public JCUser loginAttempt (String _nick, String _pswd) {
 		Element usrElem = searchUser(_nick);
 		if (usrElem == null) {
 			return null;
@@ -213,12 +213,12 @@ public class XML_Manager {
 	}
 
 	//**********************************************************************************************
-	public User registerAttempt (String _nick, String _pswd) {
+	public JCUser registerAttempt (String _nick, String _pswd) {
 		Element usrElem = searchUser(_nick);
 		if (usrElem != null) {
 			return null;
 		}
-		User newUsr = new User(generateID(), _nick, _pswd);
+		JCUser newUsr = new JCUser(generateID(), _nick, _pswd);
 		addUserToXML(newUsr);
 		return newUsr;
 	}

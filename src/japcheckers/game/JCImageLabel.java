@@ -16,7 +16,7 @@ import javax.swing.JLabel;
  * @author Александр
  */
 @SuppressWarnings("serial")
-public class ImageLabel extends JLabel {
+public class JCImageLabel extends JLabel {
 
 	private int row, col, cell_size;
 	private int left_spc = 0, up_spc = 0;
@@ -25,7 +25,7 @@ public class ImageLabel extends JLabel {
 	private ArrayList<Checker[]> lines;
 	private Color[][] colors = { {Color.BLUE, Color.CYAN}, {Color.RED, Color.PINK} };
 
-	public ImageLabel () {
+	public JCImageLabel () {
 		checkers = new ArrayList<>();
 		lines = new ArrayList<>();
 	}

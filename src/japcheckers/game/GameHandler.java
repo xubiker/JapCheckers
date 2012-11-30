@@ -2,7 +2,7 @@ package japcheckers.game;
 
 import japcheckers.JCException;
 import japcheckers.Pair;
-import japcheckers.accounts.User;
+import japcheckers.accounts.JCUser;
 import japcheckers.events.JCEventProducer;
 import japcheckers.events.JCListener;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ public class GameHandler {
 	private int turn; // turn is associated with corresponding gamer
 	private int gamers_cnt, row = 25, col = 25;
 	private ArrayList<Checker> checkers;
-	private GameFrame frame;
+	private JCGameFrame frame;
 	private ArrayList<ArrayList<Checker>> matrix;
-	private ArrayList<User> gamers;
+	private ArrayList<JCUser> gamers;
 
 	private JCEventProducer eventProducer;
 
@@ -32,7 +32,7 @@ public class GameHandler {
 
 	//**********************************************************************************************
 	private void _createFrame() {
-		frame = new GameFrame(row, col);
+		frame = new JCGameFrame(row, col);
 		frame.setHandler(this);
 		frame.setVisible(true);
 	}
@@ -53,8 +53,12 @@ public class GameHandler {
 		eventProducer.doWork("finish_game", gamers);
 	}
 
+	public void showDialog (String content) {
+		frame.showDialog(content);
+	}
+
 	//**********************************************************************************************
-	public void StartGame (ArrayList<User> gamers) throws JCException {
+	public void StartGame (ArrayList<JCUser> gamers) throws JCException {
 		if (gamers == null || gamers.isEmpty()) {
 			throw (new JCException());
 		}
@@ -500,13 +504,13 @@ public class GameHandler {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(JCGameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(JCGameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(JCGameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(GameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(JCGameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		//</editor-fold>
 
